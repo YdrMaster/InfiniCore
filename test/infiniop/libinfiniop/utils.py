@@ -392,6 +392,7 @@ def test_operator(lib, device, test_func, test_cases, tensor_dtypes):
         to be passed to `test_func`.
     - tensor_dtypes (list): A list of tensor data types (e.g., `torch.float32`) to test.
     """
+    lib.infinirtSetDevice(device, ctypes.c_int(0))
     handle = create_handle(lib, device)
     try:
         for test_case in test_cases:
@@ -435,6 +436,7 @@ def get_test_devices(args):
         devices_to_test.append(InfiniDeviceEnum.ASCEND)
     if args.kunlun:
         import torch_xmlir
+
         devices_to_test.append(InfiniDeviceEnum.KUNLUN)
     if not devices_to_test:
         devices_to_test = [InfiniDeviceEnum.CPU]
